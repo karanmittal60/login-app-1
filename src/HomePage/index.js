@@ -5,6 +5,8 @@ import {connect} from 'react-redux';
 
 import { Link } from 'react-router-dom';
 
+import AllUsers from './AllUsers';
+
 
 console.log("=======In home outside+========");
 
@@ -49,7 +51,7 @@ class Home extends React.Component{
             <div>
                 <div>
                     {console.log("=======In home render+========")}
-
+                    {/*{console.log(this.props.users)}*/}
 
                     {/*{console.log(fval.fname)}*/}
 
@@ -60,8 +62,11 @@ class Home extends React.Component{
                 <h1>you are logged in with react routes </h1>
                 <h1>hello</h1>
 
-                {this.state}
-                {console.log(this.props.usersID)}
+                {/*{this.state}*/}
+                {console.log(this.props.users)}
+                {/*{this.props.tasks.todos.map((task,index)=><Task key={index} task={task} {...this.props} /> )}*/}
+                <AllUsers/>
+
 
                 <button onClick={this.props.onLogout} >Logout</button>
                 <Link to='/'  >Logout</Link>
@@ -80,10 +85,10 @@ class Home extends React.Component{
 function mapStateToProps(state) {
     console.log("=======In home mapStateToProps+========")
         console.log(state)
-        console.log(state.userID)
+        console.log(state.users)
 
      return{
-        userID: state.user
+        users: state.users
 
      }
 
