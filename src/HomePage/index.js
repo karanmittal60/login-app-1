@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 
 import { Link } from 'react-router-dom';
 
-import AllUsers from './AllUsers';
+// import AllUsers from './AllUsers';
 
 
 console.log("=======In home outside+========");
@@ -44,6 +44,19 @@ class Home extends React.Component{
         console.log("===fname====")
         console.log(fname)
 
+        const users11= this.props.users;
+        console.log("====user11====")
+        console.log(users11)
+
+
+        // handleClick(event){
+        //
+        //
+        // }
+
+        var registerUsers =localStorage.getItem('registerFormData');
+        console.log(registerUsers)
+
 
 
 
@@ -51,21 +64,32 @@ class Home extends React.Component{
             <div>
                 <div>
                     {console.log("=======In home render+========")}
-                    {/*{console.log(this.props.users)}*/}
+
 
                     {/*{console.log(fval.fname)}*/}
 
                 </div>
+                <div>
                 <h1>Home Page</h1>
-                <h1>hello {fname}</h1>
-                {/*<h1>Hello {fval.fname}</h1>*/}
-                <h1>you are logged in with react routes </h1>
-                <h1>hello</h1>
 
-                {/*{this.state}*/}
-                {console.log(this.props.users)}
+                </div>
+                <div>
+
+
+
+                    <ul>
+
+                        {users11.map(p => <li key={p.userID}>{p.userfname}  <button onClick={this.handleClick} >Delete</button>   </li>)}
+                        {/*<button onClick={this.handleClick} >Delete</button>*/}
+
+                    </ul>
+                </div>
+
+
+
                 {/*{this.props.tasks.todos.map((task,index)=><Task key={index} task={task} {...this.props} /> )}*/}
-                <AllUsers/>
+
+
 
 
                 <button onClick={this.props.onLogout} >Logout</button>

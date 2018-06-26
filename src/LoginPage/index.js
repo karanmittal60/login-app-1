@@ -1,5 +1,5 @@
 import React from 'react';
-import {reactLocalStorage} from 'reactjs-localstorage';
+// import {reactLocalStorage} from 'reactjs-localstorage';
 
 import {Link } from 'react-router-dom';
 
@@ -44,33 +44,96 @@ class Login extends React.Component{
     handleSubmit(event){
         event.preventDefault();
         var lid = this.state.lID;
-        var lpasswd = this.state.lpasswd
-        var fval =reactLocalStorage.getObject(lid);
+        var lpasswd = this.state.lpasswd;
+        var ltype = this.state.loginType;
+        var fval =localStorage.getItem('registerFormData');
 
-        console.log("====Login Submit========")
-        console.log(fval)
-        console.log(fval.rID)
-        console.log(fval.rpasswd)
-        console.log(this.state.lID)
-        console.log(lid)
-        console.log(lpasswd)
+        var formValues = JSON.parse(fval);
 
-        if(lid===fval.rID && lpasswd===fval.rpasswd){
-            alert("Login Sucessful")
-            // this.props.addUser(lid)
-            this.props.history.push('/home')
-            console.log("======userid from store========")
-            console.log(this.state.userId)
+        console.log("login data")
+
+        console.log(lid,lpasswd,ltype)
 
 
+        var rVal = formValues.filter((authObj) => {
+            return (authObj.rID === lid)&&(authObj.rpasswd === lpasswd)&&(authObj.registerType === ltype)
+        });
 
-        }else if(lid===fval.rID && lpasswd!==fval.rpasswd){
-            alert("Login fail please check your password")
+        console.log("authenticate user object ");
+        console.log(rVal)
 
-        }
-        else{
-            alert("Login fail")
+        const rID = rVal[0].rID;
+        const rpasswd = rVal[0].rpasswd;
+        const registerType = rVal[0].registerType;
 
+        console.log("register data ")
+
+        console.log(rID,rpasswd,registerType)
+
+
+
+        console.log(rID)
+
+
+        // console.log(formValues)
+        // console.log(formValues.rID)
+        //
+        // const IDs = formValues.map(e => e.rID);
+        // console.log("====IDs++++====")
+        // console.log(IDs)
+        // const pass = formValues.map(e => e.rpasswd);
+        // console.log("====rpasss++++====")
+        // console.log(pass)
+        // const loginType1 = formValues.map(e => e.registerType);
+        // console.log("====loginType1++++====")
+        // console.log(loginType1)
+        //
+        //
+        // console.log("====Login Submit========")
+        //
+        //
+        // console.log("lid = "+lid)
+        // console.log("lpasswd = "+lpasswd)
+        // console.log("ltype = "+ltype)
+        //
+        // const idReturn=IDs.filter(IDs => IDs===lid );
+        // console.log("idReturn= "+idReturn)
+        //
+        // const idPassword=IDs.filter(pass => pass===lpasswd );
+        // console.log("idPassword= "+idPassword)
+
+
+        // const formValid = formValues.filter(formValues =>formValues.rID===lid
+        // );
+        // console.log("formValues ="+formValid)
+        // var a = [1, 2, 3, 3, null, 5 ,6,'richardgong', undefined],
+        //     b = a.filter(function(item, index, array){
+        //         return index;
+        //     });
+        // console.log(b);// [2, 3, 3, null, 5, 6, "richardgong", undefined]
+
+        if(lid!==null&&lpasswd!==null&&ltype!==null) {
+
+            if (rID === lid && rpasswd === lpasswd && registerType === ltype) {
+                alert("Login Sucessful")
+                // this.props.addUser(lid)
+                this.props.history.push('/home')
+                console.log("======userid from store========")
+                // console.log(" LOgin Id = "+idReturn)
+                console.log(this.state.userId)
+
+
+            } else if (rID === lid && rpasswd !== lpasswd && registerType === ltype) {
+                alert("Login fail please check your password")
+
+            } else if (rID === lid && rpasswd === lpasswd && registerType !== ltype) {
+                alert("Login fail please check User Type")
+
+            }
+            else {
+                alert("Login fail please check id and password")
+
+            }
         }
     }
 
@@ -116,8 +179,8 @@ class Login extends React.Component{
                                     onChange={(event)=>  this.setState({loginType: event.target.value})}
                             >
                                 <option value="" disabled >Select Login Type</option>
-                                <option value="Admin" key="Admin" >Admin</option>
-                                <option value="User" key="User">User</option>
+                                <option value="Admin"  >Admin</option>
+                                <option value="User" defaultValue >User</option>
                             </select>
                         </div>
                         <br/>

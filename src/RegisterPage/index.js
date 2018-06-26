@@ -1,5 +1,5 @@
 import React from 'react';
-import {reactLocalStorage} from 'reactjs-localstorage';
+// import {reactLocalStorage} from 'reactjs-localstorage';
 
 import {Link} from 'react-router-dom'
 
@@ -7,6 +7,7 @@ import {connect } from 'react-redux';
 import { addUser } from "../actions";
 
 import { bindActionCreators  } from 'redux';
+let ar = [];
 // import Routes from "../Routes";
 
 // import {Switch,Route} from 'react-router-dom'
@@ -22,7 +23,7 @@ class Register extends React.Component{
             rID: '',
             rpasswd: '',
             dob: '',
-            registerType:'User'
+            registerType:''
         }
         this.handleSubmit=this.handleSubmit.bind(this);
         this.handleChange=this.handleChange.bind(this);
@@ -30,21 +31,37 @@ class Register extends React.Component{
 
     }
 
+    // componentDidMount() {
+    //     // localStorage.removeItem('registerFormData')
+    //     // const ar = [];
+    //     ar = localStorage.getItem('registerFormData') ? JSON.parse(localStorage.getItem('registerFormData')) : [];
+    //     console.log('===== data ===')
+    //     console.log(ar)
+    //     localStorage.setItem('registerFormData', JSON.stringify(ar));
+    //     // if (data !== null) {
+    //     //     console.log(data.length)
+    //     //     data.map((data) => {
+    //     //         ar.push(data);
+    //     //     })
+    //     // }
+    // }
+
 
     handleSubmit(event){
         event.preventDefault();
         console.log("====Regester Submit============")
         console.log(this.state.fname)
-        reactLocalStorage.set('name',"karan");
-        var nm= reactLocalStorage.get('name');
-        console.log(nm)
-        console.log("++++++======this.state++++++++")
-        console.log(this.state)
+
 
         console.log("+=============list of user=======")
         const listOfUser=this.state.rID;
         console.log("=====userID ==========json array++========1")
-        console.log(listOfUser)
+
+        // const ar = localStorage.getItem('registerFormData') ? localStorage.getItem('registerFormData') : [];
+
+
+        // const prevData=reactLocalStorage.getObject('registerFormData')
+
         const userData = {
             'fname':this.state.fname,
             'lname':this.state.lname,
@@ -54,16 +71,29 @@ class Register extends React.Component{
             'registerType':this.state.registerType
 
         }
+        // ar.push({listOfUser,userData})
+        ar.push(userData)
+
+
+
 
         console.log("=====userData ==========json array++========")
         console.log(userData)
-        // const userData1= JSON.stringify(userData);
-        // console.log(userData1)
-        // this.props.addUser(this.state);
+        console.log(listOfUser)
+
+
         this.props.addUser(userData);
 
+        // console.log('===== ar ===')
+        // console.log(ar)
 
-        reactLocalStorage.setObject(listOfUser,userData)
+        // const dataWithId={
+        //     listOfUser: JSON.stringify(ar)
+        //
+        //
+        // }
+
+        localStorage.setItem('registerFormData',JSON.stringify(ar))
         alert("Register Sucessful Id"+this.state.rID)
         // this.setState({
         //     fname: '',

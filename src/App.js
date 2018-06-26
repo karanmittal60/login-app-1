@@ -8,6 +8,8 @@ import './App.css';
 import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
 
+// import AllUsers from './HomePage/AllUsers'
+
 class App extends Component {
   render() {
     return (
@@ -16,6 +18,9 @@ class App extends Component {
 
           <Header/>
           <Main/>
+
+
+          {/*<AllUsers/>*/}
 
 
 
