@@ -3,17 +3,11 @@ import React from 'react';
 
 import {Link } from 'react-router-dom';
 
-// import {connect} from 'react-redux';
-//
-// import {bindActionCreators} from 'redux';
-//
-// import {addUser} from "../actions";
+import {connect} from 'react-redux';
 
-// import {Router,Route,withRouter} from 'react-router';
+import {bindActionCreators} from 'redux';
 
-
-// import Home from './../HomePage/index';
-
+import {addUser} from "../actions";
 
 class Login extends React.Component{
     constructor(props){
@@ -46,6 +40,7 @@ class Login extends React.Component{
         var lid = this.state.lID;
         var lpasswd = this.state.lpasswd;
         var ltype = this.state.loginType;
+
         var fval =localStorage.getItem('registerFormData');
 
         var formValues = JSON.parse(fval);
@@ -103,20 +98,12 @@ class Login extends React.Component{
         // console.log("idPassword= "+idPassword)
 
 
-        // const formValid = formValues.filter(formValues =>formValues.rID===lid
-        // );
-        // console.log("formValues ="+formValid)
-        // var a = [1, 2, 3, 3, null, 5 ,6,'richardgong', undefined],
-        //     b = a.filter(function(item, index, array){
-        //         return index;
-        //     });
-        // console.log(b);// [2, 3, 3, null, 5, 6, "richardgong", undefined]
 
         if(lid!==null&&lpasswd!==null&&ltype!==null) {
 
             if (rID === lid && rpasswd === lpasswd && registerType === ltype) {
                 alert("Login Sucessful")
-                // this.props.addUser(lid)
+                this.props.addUser(lid)
                 this.props.history.push('/home')
                 console.log("======userid from store========")
                 // console.log(" LOgin Id = "+idReturn)
@@ -157,6 +144,7 @@ class Login extends React.Component{
                                    placeholder="Email or Phone"
                                    value={this.state.lID}
                                    onChange={(event)=> this.setState({lID: event.target.value})}
+                                   required
                             />
 
                         </div>
@@ -168,6 +156,7 @@ class Login extends React.Component{
                                    placeholder="Password"
                                    value={this.state.lpasswd}
                                    onChange={(event)=> this.setState({lpasswd: event.target.value})}
+                                   required
                             />
 
                         </div>
@@ -177,6 +166,7 @@ class Login extends React.Component{
                             Register Type:
                             <select value={this.state.loginType}
                                     onChange={(event)=>  this.setState({loginType: event.target.value})}
+                                    required
                             >
                                 <option value="" disabled >Select Login Type</option>
                                 <option value="Admin"  >Admin</option>
@@ -199,16 +189,18 @@ class Login extends React.Component{
     }
 }
 
-// function mapDispatchToProps(dispatch) {
-//     return bindActionCreators({addUser},dispatch);
-//
-// }
-//
-// function mapStateToProps(state) {
-//     return state
-//
-// }
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({addUser},dispatch);
+
+}
+
+function mapStateToProps(state) {
+    console.log("===== login page map state to props =====")
+    console.log(state)
+    return state
+
+}
 
 
-// export default  connect(mapStateToProps,mapDispatchToProps)(Login);
-export default  Login;
+export default  connect(mapStateToProps,mapDispatchToProps)(Login);
+// export default  Login;

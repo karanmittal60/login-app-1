@@ -3,16 +3,11 @@ import React from 'react';
 
 import {Link} from 'react-router-dom'
 
-import {connect } from 'react-redux';
-import { addUser } from "../actions";
-
-import { bindActionCreators  } from 'redux';
+// import {connect } from 'react-redux';
+// import { addUser } from "../actions";
+//
+// import { bindActionCreators  } from 'redux';
 let ar = [];
-// import Routes from "../Routes";
-
-// import {Switch,Route} from 'react-router-dom'
-// import Login from "../LoginPage";
-
 
 class Register extends React.Component{
     constructor(props){
@@ -31,20 +26,20 @@ class Register extends React.Component{
 
     }
 
-    // componentDidMount() {
-    //     // localStorage.removeItem('registerFormData')
-    //     // const ar = [];
-    //     ar = localStorage.getItem('registerFormData') ? JSON.parse(localStorage.getItem('registerFormData')) : [];
-    //     console.log('===== data ===')
-    //     console.log(ar)
-    //     localStorage.setItem('registerFormData', JSON.stringify(ar));
-    //     // if (data !== null) {
-    //     //     console.log(data.length)
-    //     //     data.map((data) => {
-    //     //         ar.push(data);
-    //     //     })
-    //     // }
-    // }
+    componentDidMount() {
+        // localStorage.removeItem('registerFormData')
+        // const ar = [];
+        ar = localStorage.getItem('registerFormData') ? JSON.parse(localStorage.getItem('registerFormData')) : [];
+        console.log('===== data ===')
+        console.log(ar)
+        localStorage.setItem('registerFormData', JSON.stringify(ar));
+        // if (data !== null) {
+        //     console.log(data.length)
+        //     data.map((data) => {
+        //         ar.push(data);
+        //     })
+        // }
+    }
 
 
     handleSubmit(event){
@@ -57,10 +52,6 @@ class Register extends React.Component{
         const listOfUser=this.state.rID;
         console.log("=====userID ==========json array++========1")
 
-        // const ar = localStorage.getItem('registerFormData') ? localStorage.getItem('registerFormData') : [];
-
-
-        // const prevData=reactLocalStorage.getObject('registerFormData')
 
         const userData = {
             'fname':this.state.fname,
@@ -82,16 +73,11 @@ class Register extends React.Component{
         console.log(listOfUser)
 
 
-        this.props.addUser(userData);
+        // this.props.addUser(userData);      //redux part for register
 
         // console.log('===== ar ===')
         // console.log(ar)
 
-        // const dataWithId={
-        //     listOfUser: JSON.stringify(ar)
-        //
-        //
-        // }
 
         localStorage.setItem('registerFormData',JSON.stringify(ar))
         alert("Register Sucessful Id"+this.state.rID)
@@ -134,6 +120,7 @@ class Register extends React.Component{
                                   placeholder="First Name"
                                   value={this.state.fname}
                                   onChange={(event)=>  this.setState({fname: event.target.value}) }
+                                   required
                             />
                         </div>
                         <br/>
@@ -144,6 +131,7 @@ class Register extends React.Component{
                                     value={this.state.lname}
                                     placeholder="SurName"
                                     onChange={(event)=>  this.setState({lname: event.target.value}) }
+                                   required
                             />
 
                         </div>
@@ -155,6 +143,7 @@ class Register extends React.Component{
                                    value={this.state.dob}
                                    placeholder="Date Of Birth"
                                    onChange={(event)=>  this.setState({dob: event.target.value}) }
+                                   required
                             />
 
                         </div>
@@ -166,6 +155,7 @@ class Register extends React.Component{
                                    value={this.state.rID}
                                    placeholder="Email or Phone"
                                    onChange={(event)=>  this.setState({rID: event.target.value}) }
+                                   required
                             />
 
                         </div>
@@ -177,6 +167,7 @@ class Register extends React.Component{
                                    value={this.state.rpasswd}
                                    placeholder="Password"
                                    onChange={(event)=>  this.setState({rpasswd: event.target.value}) }
+                                   required
                             />
 
                         </div>
@@ -185,6 +176,7 @@ class Register extends React.Component{
                             Register Type:
                             <select value={this.state.registerType}
                                     onChange={(event)=>  this.setState({registerType: event.target.value})}
+                                    required
                             >
                                 <option value="" disabled >Select Register Type</option>
                                 <option value="Admin"  >Admin</option>
@@ -209,23 +201,23 @@ class Register extends React.Component{
     }
 }
 
-function mapDispatchToProps(dispatch){
-    return bindActionCreators({addUser},dispatch)
-
-
-}
-
-function mapStatetoProps(state){
-    console.log("=======in register mapStatetoProps=========")
-    console.log(state)
-
-    return state
-
-}
-
+// function mapDispatchToProps(dispatch){                   //redux part for register
+//     return bindActionCreators({addUser},dispatch)
+//
+//
+// }
+//
+// function mapStatetoProps(state){
+//     console.log("=======in register mapStatetoProps=========")
+//     console.log(state)
+//
+//     return state
+//
+// }
 // Register.prototype= {
 //     userSignupRequest: React.propTypes.func.isRequired
 //
 // }
 
-export default  connect(mapStatetoProps,mapDispatchToProps)( Register);
+export default   Register;
+// export default  connect(mapStatetoProps,mapDispatchToProps)( Register);

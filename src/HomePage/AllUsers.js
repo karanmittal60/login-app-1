@@ -15,7 +15,7 @@ class AllUsers extends React.Component{
             {id : 4, name : "Adam", tags : "javascript"},
             {id : 5, name : "Alex", tags : "java"}
         ];
-        var javscriptPersons = persons.filter(personObj => personObj.name.indexOf("Roger") > -1);
+        var javscriptPersons = persons.filter(personObj =>personObj.name.indexOf("Roger"));
 //es5 style
 //         var javscriptPersons = persons.filter(function(personObj){
 //             return personObj.tags.indexOf("javascript") > -1
