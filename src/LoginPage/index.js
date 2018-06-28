@@ -9,6 +9,8 @@ import {bindActionCreators} from 'redux';
 
 import {addUser} from "../actions";
 
+import Header from './../components/Header/Header'
+
 class Login extends React.Component{
     constructor(props){
         super(props);
@@ -51,23 +53,58 @@ class Login extends React.Component{
 
 
         var rVal = formValues.filter((authObj) => {
-            return (authObj.rID === lid)&&(authObj.rpasswd === lpasswd)&&(authObj.registerType === ltype)
+
+            return (authObj.rID === lid)
+            // return (((authObj.rID === lid)&&(authObj.rpasswd === lpasswd)&&(authObj.registerType === ltype) )>0) //3 checks
         });
 
-        console.log("authenticate user object ");
+        console.log("====authenticate user object==== ");
         console.log(rVal)
 
-        const rID = rVal[0].rID;
-        const rpasswd = rVal[0].rpasswd;
-        const registerType = rVal[0].registerType;
+        if (rVal.length>0){
+            console.log("authenticate user is not null")
+            const rID1 = rVal[0].rID;
+            const rpasswd1 = rVal[0].rpasswd;
+            const registerType1 = rVal[0].registerType;
+            console.log("register data ")
+            console.log(rID1,rpasswd1,registerType1)
 
-        console.log("register data ")
-
-        console.log(rID,rpasswd,registerType)
 
 
+                if (rID1 === lid && rpasswd1 === lpasswd && registerType1 === ltype) {
+                    alert("Login Sucessful")
+                    this.props.addUser(lid)
+                    this.props.history.push (`/home/${lid}`)     ///"`" special operator to fetch the values
+                    console.log("======userid from store========")
+                    // console.log(" LOgin Id = "+idReturn)
+                    console.log(this.state.userId)
 
-        console.log(rID)
+
+                } else if (rID1 === lid && rpasswd1 !== lpasswd && registerType1 === ltype) {
+                    alert("Login fail please check your password")
+
+                } else if (rID1 === lid && rpasswd1 === lpasswd && registerType1 !== ltype) {
+                    alert("Login fail please check User Type")
+
+                }
+                else {
+                    alert("Login fail please check id and password")
+
+                }
+
+
+
+        }
+        else {
+            alert("no registered user")
+        }
+
+        // const rID = rVal[0].rID;
+        // const rpasswd = rVal[0].rpasswd;
+        // const registerType = rVal[0].registerType;
+        // console.log("register data ")
+        // console.log(rID,rpasswd,registerType)
+        // console.log(rID)
 
 
         // console.log(formValues)
@@ -99,29 +136,7 @@ class Login extends React.Component{
 
 
 
-        if(lid!==null&&lpasswd!==null&&ltype!==null) {
 
-            if (rID === lid && rpasswd === lpasswd && registerType === ltype) {
-                alert("Login Sucessful")
-                this.props.addUser(lid)
-                this.props.history.push('/home')
-                console.log("======userid from store========")
-                // console.log(" LOgin Id = "+idReturn)
-                console.log(this.state.userId)
-
-
-            } else if (rID === lid && rpasswd !== lpasswd && registerType === ltype) {
-                alert("Login fail please check your password")
-
-            } else if (rID === lid && rpasswd === lpasswd && registerType !== ltype) {
-                alert("Login fail please check User Type")
-
-            }
-            else {
-                alert("Login fail please check id and password")
-
-            }
-        }
     }
 
     handleChange(event){
@@ -133,56 +148,64 @@ class Login extends React.Component{
     render(){
         return(
             <div>
-                <h1>Login Page</h1>
-                <form onSubmit={this.handleSubmit} >
-                    <label>
-                        <div>
-                            Username:
+                <div>
+                    <Header login="login" />
+
+                </div>
+                <div>
+
+                    <h1>Login Page</h1>
+                    <form onSubmit={this.handleSubmit} >
+                        <label>
+                            <div>
+                                Username:
+                                <br/>
+
+                                <input type="text"
+                                       placeholder="Email or Phone"
+                                       value={this.state.lID}
+                                       onChange={(event)=> this.setState({lID: event.target.value})}
+                                       required
+                                />
+
+                            </div>
                             <br/>
+                            <div>
+                                Password:
+                                <br/>
+                                <input type="password"
+                                       placeholder="Password"
+                                       value={this.state.lpasswd}
+                                       onChange={(event)=> this.setState({lpasswd: event.target.value})}
+                                       required
+                                />
 
-                            <input type="text"
-                                   placeholder="Email or Phone"
-                                   value={this.state.lID}
-                                   onChange={(event)=> this.setState({lID: event.target.value})}
-                                   required
-                            />
+                            </div>
 
-                        </div>
-                        <br/>
-                        <div>
-                            Password:
                             <br/>
-                            <input type="password"
-                                   placeholder="Password"
-                                   value={this.state.lpasswd}
-                                   onChange={(event)=> this.setState({lpasswd: event.target.value})}
-                                   required
-                            />
+                            <div>
+                                Register Type:
+                                <select value={this.state.loginType}
+                                        onChange={(event)=>  this.setState({loginType: event.target.value})}
+                                        required
+                                >
+                                    <option value="" disabled >Select Login Type</option>
+                                    <option value="Admin"  >Admin</option>
+                                    <option value="User" defaultValue >User</option>
+                                </select>
+                            </div>
+                            <br/>
+                            <div>
+                                <input type="submit" value="Login"  />
+                                {' '}
+                                <Link to='/register'  >Register</Link>
 
-                        </div>
+                            </div>
+                        </label>
 
-                        <br/>
-                        <div>
-                            Register Type:
-                            <select value={this.state.loginType}
-                                    onChange={(event)=>  this.setState({loginType: event.target.value})}
-                                    required
-                            >
-                                <option value="" disabled >Select Login Type</option>
-                                <option value="Admin"  >Admin</option>
-                                <option value="User" defaultValue >User</option>
-                            </select>
-                        </div>
-                        <br/>
-                        <div>
-                            <input type="submit" value="Login"  />
-                            {' '}
-                            <Link to='/register'  >Register</Link>
+                    </form>
 
-                        </div>
-                    </label>
-
-                </form>
+                </div>
 
             </div>
         );

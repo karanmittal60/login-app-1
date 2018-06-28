@@ -8,10 +8,10 @@ export const addUser = (userData) => {
     }
 
 }
-export const deleteUser = (userID) => {
+export const deleteUser = (userData) => {
     return{
         type:DELETE_USER,
-        payload:userID
+        payload:userData
     }
 }
 

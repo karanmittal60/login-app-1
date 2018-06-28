@@ -3,6 +3,8 @@ import React from 'react';
 
 import {Link} from 'react-router-dom'
 
+import Header from './../components/Header/Header'
+
 // import {connect } from 'react-redux';
 // import { addUser } from "../actions";
 //
@@ -27,8 +29,6 @@ class Register extends React.Component{
     }
 
     componentDidMount() {
-        // localStorage.removeItem('registerFormData')
-        // const ar = [];
         ar = localStorage.getItem('registerFormData') ? JSON.parse(localStorage.getItem('registerFormData')) : [];
         console.log('===== data ===')
         console.log(ar)
@@ -50,7 +50,6 @@ class Register extends React.Component{
 
         console.log("+=============list of user=======")
         const listOfUser=this.state.rID;
-        console.log("=====userID ==========json array++========1")
 
 
         const userData = {
@@ -65,9 +64,6 @@ class Register extends React.Component{
         // ar.push({listOfUser,userData})
         ar.push(userData)
 
-
-
-
         console.log("=====userData ==========json array++========")
         console.log(userData)
         console.log(listOfUser)
@@ -78,18 +74,23 @@ class Register extends React.Component{
         // console.log('===== ar ===')
         // console.log(ar)
 
+        const alreadyRegisterData = JSON.parse(localStorage.getItem('registerFormData'))
 
-        localStorage.setItem('registerFormData',JSON.stringify(ar))
-        alert("Register Sucessful Id"+this.state.rID)
-        // this.setState({
-        //     fname: '',
-        //     lname: '',
-        //     rID: '',
-        //     rpasswd: '',
-        //     dob: ''
-        // })
-        this.props.history.push('/')
+        const userExist = alreadyRegisterData.filter((userObj)=>{
+            return (userObj.rID===userData.rID)
+        });
+        console.log("===user Exist====")
+        console.log(userExist)
+        if(userExist.length>0){
+            console.log("===already register===")
+            alert("user already exist")
+        }
+        else{
+            localStorage.setItem('registerFormData',JSON.stringify(ar))
+            alert("Register Sucessful Id"+this.state.rID)
+            this.props.history.push('/')
 
+        }
     }
 
     handleChange(event){
@@ -110,92 +111,100 @@ class Register extends React.Component{
         console.log(this.props)
         return(
             <div>
-                <h1>Create An Account</h1>
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        <div>
-                            Firstname:
+                <div>
+                    <Header register="register"/>
+
+                </div>
+                <div>
+
+
+                    <h1>Create An Account</h1>
+                    <form onSubmit={this.handleSubmit}>
+                        <label>
+                            <div>
+                                Firstname:
+                                <br/>
+                                <input type="text"
+                                      placeholder="First Name"
+                                      value={this.state.fname}
+                                      onChange={(event)=>  this.setState({fname: event.target.value}) }
+                                       required
+                                />
+                            </div>
                             <br/>
-                            <input type="text"
-                                  placeholder="First Name"
-                                  value={this.state.fname}
-                                  onChange={(event)=>  this.setState({fname: event.target.value}) }
-                                   required
-                            />
-                        </div>
-                        <br/>
-                        <div>
-                            Lastname:
+                            <div>
+                                Lastname:
+                                <br/>
+                                <input type="text"
+                                        value={this.state.lname}
+                                        placeholder="SurName"
+                                        onChange={(event)=>  this.setState({lname: event.target.value}) }
+                                       required
+                                />
+
+                            </div>
                             <br/>
-                            <input type="text"
-                                    value={this.state.lname}
-                                    placeholder="SurName"
-                                    onChange={(event)=>  this.setState({lname: event.target.value}) }
-                                   required
-                            />
+                            <div>
+                                Date Of Birth:
+                                <br/>
+                                <input type="date"
+                                       value={this.state.dob}
+                                       placeholder="Date Of Birth"
+                                       onChange={(event)=>  this.setState({dob: event.target.value}) }
+                                       required
+                                />
 
-                        </div>
-                        <br/>
-                        <div>
-                            Date Of Birth:
+                            </div>
                             <br/>
-                            <input type="date"
-                                   value={this.state.dob}
-                                   placeholder="Date Of Birth"
-                                   onChange={(event)=>  this.setState({dob: event.target.value}) }
-                                   required
-                            />
+                            <div>
+                                Email or Phone:
+                                <br/>
+                                <input type="text"
+                                       value={this.state.rID}
+                                       placeholder="Email or Phone"
+                                       onChange={(event)=>  this.setState({rID: event.target.value}) }
+                                       required
+                                />
 
-                        </div>
-                        <br/>
-                        <div>
-                            Email or Phone:
+                            </div>
                             <br/>
-                            <input type="text"
-                                   value={this.state.rID}
-                                   placeholder="Email or Phone"
-                                   onChange={(event)=>  this.setState({rID: event.target.value}) }
-                                   required
-                            />
+                            <div>
+                                Password:
+                                <br/>
+                                <input type="password"
+                                       value={this.state.rpasswd}
+                                       placeholder="Password"
+                                       onChange={(event)=>  this.setState({rpasswd: event.target.value}) }
+                                       required
+                                />
 
-                        </div>
-                        <br/>
-                        <div>
-                            Password:
+                            </div>
                             <br/>
-                            <input type="password"
-                                   value={this.state.rpasswd}
-                                   placeholder="Password"
-                                   onChange={(event)=>  this.setState({rpasswd: event.target.value}) }
-                                   required
-                            />
+                            <div>
+                                Register Type:
+                                <select value={this.state.registerType}
+                                        onChange={(event)=>  this.setState({registerType: event.target.value})}
+                                        required
+                                >
+                                    <option value="" disabled >Select Register Type</option>
+                                    <option value="Admin"  >Admin</option>
+                                    <option value="User" defaultValue >User</option>
+                                </select>
+                            </div>
+                            <br/>
 
-                        </div>
-                        <br/>
-                        <div>
-                            Register Type:
-                            <select value={this.state.registerType}
-                                    onChange={(event)=>  this.setState({registerType: event.target.value})}
-                                    required
-                            >
-                                <option value="" disabled >Select Register Type</option>
-                                <option value="Admin"  >Admin</option>
-                                <option value="User" defaultValue >User</option>
-                            </select>
-                        </div>
-                        <br/>
+                            <div>
+                                <input type="submit" value="Sign Up"  />
+                                {' '}
+                                <Link to='/'  >Cancel</Link>
 
-                        <div>
-                            <input type="submit" value="Sign Up"  />
-                            {' '}
-                            <Link to='/'  >Cancel</Link>
-
-                        </div>
-                    </label>
+                            </div>
+                        </label>
 
 
-                </form>
+                    </form>
 
+                </div>
             </div>
         );
     }

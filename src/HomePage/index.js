@@ -1,13 +1,11 @@
 import React from 'react';
-// import {reactLocalStorage} from 'reactjs-localstorage';
-
 import {connect} from 'react-redux';
-
-import { Link } from 'react-router-dom';
 import TableOfUsers from "./TableOfUsers";
-
+// import {reactLocalStorage} from 'reactjs-localstorage';
+// import { Link } from 'react-router-dom';
 // import AllUsers from './AllUsers';
 
+import Header from './../components/Header/Header'
 
 console.log("=======In home outside+========");
 
@@ -19,17 +17,28 @@ console.log("=======In home outside+========");
 
 
 
-
 class Home extends React.Component{
     constructor(props){
         super(props);
+        this.state = {
+            name: ''
+        }
         this.onLogout=this.onLogout.bind(this);
         this.handleUserDelete= this.handleUserDelete.bind(this);
+
     }
 
-
+    componentWillMount() {
+        const { pathname } = this.props.location; // user id from url
+        console.log('===== componDi jkjl==')
+        console.log(pathname)
+        const parts = pathname.split('/');
+         this.hel =  parts.pop();
+        console.log(this.hel);
+    }
     onLogout(event){
         this.props.history.push('/')
+
     }
     handleUserDelete(userDeleteID){
         console.log("===user delete ID====")
@@ -55,27 +64,27 @@ class Home extends React.Component{
 
     render(){
         console.log("=====home render======")
-
-
-
-
-        const loginUserID= this.props.users.user;
-        console.log("====login user id====")
+        console.log(this.hel)
+        const loginUserID = this.hel;
         console.log(loginUserID)
 
+        // const loginUserID= this.props.users.user;   //id from state
+        // console.log("====login user id====")
+        // console.log(loginUserID)
 
 
-        const registeredUsers =localStorage.getItem('registerFormData');
+
+        const registeredUsers =localStorage.getItem('registerFormData');   //all register users
         const JSONregisteredUsers=JSON.parse(registeredUsers)
         console.log("=====all registeredUsers======")
         console.log(JSONregisteredUsers)
 
         console.log("====login user object ======")
-        const loginUserArray = JSONregisteredUsers.filter(personObj => !personObj.fname.indexOf(loginUserID));
+        const loginUserArray = JSONregisteredUsers.filter(personObj => !personObj.fname.indexOf(loginUserID));//on the bases of id userLogin Data
         console.log(loginUserArray);
 
         console.log("====login user name ======")
-        const loginUserName = loginUserArray[0].fname;
+        const loginUserName = loginUserArray[0].fname;  //user name
         console.log(loginUserName)
 
         // console.log("=====delete practice=======")
@@ -87,10 +96,13 @@ class Home extends React.Component{
         // const itemAfterDelete = JSON.stringify(afterDelete);
         // localStorage.setItem("registerFormData",itemAfterDelete)
 
+        console.log("=====this.props+++++======")
+        console.log(this.props)
 
         return(
             <div>
                 <div>
+                    <Header home='home' name={loginUserName}/>
                     {console.log("=======In home render+========")}
                 </div>
                     <div>
@@ -109,9 +121,13 @@ class Home extends React.Component{
                     {/*{this.props.tasks.todos.map((task,index)=><Task key={index} task={task} {...this.props} /> )}*/}
 
                     <button onClick={this.onLogout} >Logout</button>
-                    <Link to='/'  >Logout</Link>
+
                 </div>
+                <br/><br/><br/><br/><br/><br/>
+
+
                 <div>
+
                     <TableOfUsers/>
                 </div>
 
@@ -122,8 +138,7 @@ class Home extends React.Component{
 }
 
 // function  mapDispatchToProps(dispatch){
-//
-//
+//     return bindActionCreators({logoutUser},dispatch)
 // }
 
 function mapStateToProps(state) {
@@ -136,12 +151,9 @@ function mapStateToProps(state) {
 
      }
 
-
-
-
 }
 
-export default connect(mapStateToProps)( Home);
+export default connect(mapStateToProps)(Home);
 
 // return {
 //     userI: state.user,

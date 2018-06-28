@@ -36,6 +36,7 @@ const reducer = (state=initialState ,action) => {
         case 'DELETE_USER':
             return{
 
+
             }
         default:
             return state;
