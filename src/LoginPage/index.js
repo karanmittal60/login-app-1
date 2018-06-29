@@ -101,8 +101,6 @@ class Login extends React.Component{
         // console.log("register data ")
         // console.log(rID,rpasswd,registerType)
         // console.log(rID)
-
-
         // console.log(formValues)
         // console.log(formValues.rID)
         //

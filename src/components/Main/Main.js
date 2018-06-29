@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import Login from "../../LoginPage";
 import Register from "../../RegisterPage";
 import Home from "../../HomePage";
+import EditRegisteredUser from "../../Admin/EditRegisteredUser";
 
 // import Header from './../Header/Header'
 
@@ -23,6 +24,8 @@ class Main extends React.Component{
                             <Route exact path='/' component={Login} />
                             <Route path='/register' component={Register} />
                             <Route path='/home' component={Home} />
+                            <Route path='/editregistereduser' component={EditRegisteredUser}  />
+
                         </Switch>
                     </main>
 

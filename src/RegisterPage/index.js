@@ -99,6 +99,7 @@ class Register extends React.Component{
 
     }
 
+
     // navigateToLogin = () => {
     //     console.log('===== in navigate ===')
     //     console.log(this.props)

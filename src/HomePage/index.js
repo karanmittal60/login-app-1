@@ -1,11 +1,13 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import TableOfUsers from "./TableOfUsers";
+// import {connect} from 'react-redux';  //redux part to fetch data
+// import TableOfUsers from "./TableOfUsers";
 // import {reactLocalStorage} from 'reactjs-localstorage';
 // import { Link } from 'react-router-dom';
 // import AllUsers from './AllUsers';
 
 import Header from './../components/Header/Header'
+import User from "../User/User";
+import Admin from "../Admin/Admin";
 
 console.log("=======In home outside+========");
 
@@ -87,6 +89,11 @@ class Home extends React.Component{
         const loginUserName = loginUserArray[0].fname;  //user name
         console.log(loginUserName)
 
+        console.log("======login user type======")
+        const loginUserType = loginUserArray[0].registerType;
+        console.log(loginUserType)
+
+
         // console.log("=====delete practice=======")
         // const dataFromLocal = JSON.parse(localStorage.getItem('registerFormData'))
         // console.log(dataFromLocal)
@@ -127,8 +134,18 @@ class Home extends React.Component{
 
 
                 <div>
+                    {/*{loginUserType}*/}
 
-                    <TableOfUsers/>
+
+                    { (loginUserType==='User') && <User/>}
+
+                    { (loginUserType==='Admin') && <Admin {...this.props} />}
+
+
+
+
+
+                    {/*<TableOfUsers/>*/}
                 </div>
 
 
@@ -137,23 +154,23 @@ class Home extends React.Component{
     }
 }
 
-// function  mapDispatchToProps(dispatch){
+// function  mapDispatchToProps(dispatch){  //redux part to fetch data from redux
 //     return bindActionCreators({logoutUser},dispatch)
 // }
+// function mapStateToProps(state) {
+//     console.log("=======In home mapStateToProps+========")
+//         console.log(state)
+//         console.log(state.users)
+//
+//      return{
+//         users: state.users
+//
+//      }
+//
+// }
 
-function mapStateToProps(state) {
-    console.log("=======In home mapStateToProps+========")
-        console.log(state)
-        console.log(state.users)
-
-     return{
-        users: state.users
-
-     }
-
-}
-
-export default connect(mapStateToProps)(Home);
+export default  Home;
+// export default connect(mapStateToProps)(Home);   //redux part to fetch data
 
 // return {
 //     userI: state.user,
