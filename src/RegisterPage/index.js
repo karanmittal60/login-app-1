@@ -70,7 +70,6 @@ class Register extends React.Component{
 
 
         // this.props.addUser(userData);      //redux part for register
-
         // console.log('===== ar ===')
         // console.log(ar)
 
@@ -115,76 +114,82 @@ class Register extends React.Component{
                     <Header register="register"/>
 
                 </div>
-                <div>
+                <div >
 
 
-                    <h1>Create An Account</h1>
+                    <h1 className="text-center">Create An Account</h1>
                     <form onSubmit={this.handleSubmit}>
-                        <label>
-                            <div>
-                                Firstname:
+                        <div className="row col-md-2 col-md-offset-4 ">
+                            <div className="form-group">
+                                <label>Firstname:</label>
                                 <br/>
                                 <input type="text"
                                       placeholder="First Name"
                                       value={this.state.fname}
                                       onChange={(event)=>  this.setState({fname: event.target.value}) }
                                        required
+                                       className="form-control"
                                 />
                             </div>
-                            <br/>
-                            <div>
-                                Lastname:
+
+                            <div className="form-group">
+                                <label>Lastname:</label>
                                 <br/>
                                 <input type="text"
                                         value={this.state.lname}
                                         placeholder="SurName"
                                         onChange={(event)=>  this.setState({lname: event.target.value}) }
                                        required
+                                       className="form-control"
                                 />
 
                             </div>
-                            <br/>
-                            <div>
-                                Date Of Birth:
+
+                            <div className="form-group">
+                                <label>Date Of Birth:</label>
                                 <br/>
                                 <input type="date"
                                        value={this.state.dob}
                                        placeholder="Date Of Birth"
                                        onChange={(event)=>  this.setState({dob: event.target.value}) }
                                        required
+                                       className="form-control"
                                 />
 
                             </div>
-                            <br/>
-                            <div>
-                                Email or Phone:
+
+                            <div className="form-group">
+                                <label>Email or Phone:</label>
                                 <br/>
                                 <input type="text"
                                        value={this.state.rID}
                                        placeholder="Email or Phone"
                                        onChange={(event)=>  this.setState({rID: event.target.value}) }
                                        required
+                                       className="form-control"
                                 />
 
                             </div>
-                            <br/>
-                            <div>
-                                Password:
+
+                            <div className="form-group">
+                                <label>Password:</label>
                                 <br/>
                                 <input type="password"
                                        value={this.state.rpasswd}
                                        placeholder="Password"
                                        onChange={(event)=>  this.setState({rpasswd: event.target.value}) }
                                        required
+                                       className="form-control"
                                 />
 
                             </div>
-                            <br/>
-                            <div>
-                                Register Type:
+
+                            <div className="form-group">
+                                <label>Register Type:</label>
                                 <select value={this.state.registerType}
                                         onChange={(event)=>  this.setState({registerType: event.target.value})}
                                         required
+                                        className="form-control"
                                 >
                                     <option value="" disabled >Select Register Type</option>
                                     <option value="Admin"  >Admin</option>
@@ -194,12 +199,12 @@ class Register extends React.Component{
                             <br/>
 
                             <div>
-                                <input type="submit" value="Sign Up"  />
+                                <input type="submit" value="Sign Up"  className="btn btn-info"/>
                                 {' '}
-                                <Link to='/'  >Cancel</Link>
+                                <Link to='/' className="btn btn-info" >Cancel</Link>
 
                             </div>
-                        </label>
+                        </div>
 
 
                     </form>

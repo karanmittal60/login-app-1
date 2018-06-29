@@ -8,6 +8,8 @@ import {bindActionCreators} from 'redux'
 
 import deleteUser from './../../actions/index'
 
+
+
 // import './Header.css'
 
 class Header extends React.Component{
@@ -37,20 +39,37 @@ class Header extends React.Component{
 
 
                     </div>
-                    <div className="App-header">
+                    <div className="container-fluid App-header">
                     <header>
                         <nav>
+                            <div className="row">
+                                <div className="col-md-12 ">
 
-                                <h1>Welcome to Jellyfish Technologies</h1>
-                                <ul>
-                                {(this.props.login || this.props.register) && <Link to='/' > Login</Link>}
-                                    {'   '}
-                                {(this.props.login || this.props.register) && <Link to='/register' > Register</Link>}
+                                         <h1 className="text-center">Welcome to Jellyfish Technologies</h1>
+                                </div>
+                            </div>
 
-                                {this.props.home && <div><Link to='/' > Logout</Link>
-                                <h1>{this.props.name}</h1></div>}
+                                <div className="row">
+                                    <div className="col-md-6 text-left">
+                                        {(this.props.login || this.props.register) && <Link to='/' className=" btn btn-danger" > Login</Link>}
+                                            {'   '}
+                                        {(this.props.login || this.props.register) && <Link to='/register' className=" btn btn-danger"> Register</Link>}
+                                    </div>
+                                    <div className="col-md-6 text-right ">
 
-                            </ul>
+
+                                        {this.props.home &&
+                                            <div>
+                                                <Link to='/' className=" btn btn-danger"  > Logout</Link>
+                                            <h1>Hello {this.props.name}</h1>
+                                            </div>
+                                        }
+                                    </div>
+
+
+
+
+                            </div>
                         </nav>
                     </header>
                     </div>

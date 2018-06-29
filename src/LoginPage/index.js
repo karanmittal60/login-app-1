@@ -1,5 +1,4 @@
 import React from 'react';
-// import {reactLocalStorage} from 'reactjs-localstorage';
 
 import {Link } from 'react-router-dom';
 
@@ -10,6 +9,7 @@ import {bindActionCreators} from 'redux';
 import {addUser} from "../actions";
 
 import Header from './../components/Header/Header'
+// import {reactLocalStorage} from 'reactjs-localstorage';
 
 class Login extends React.Component{
     constructor(props){
@@ -32,10 +32,6 @@ class Login extends React.Component{
     //
     //
     // }
-
-
-
-
 
     handleSubmit(event){
         event.preventDefault();
@@ -154,54 +150,61 @@ class Login extends React.Component{
                 </div>
                 <div>
 
-                    <h1>Login Page</h1>
+                    <h1 className="text-center">Login Page</h1>
                     <form onSubmit={this.handleSubmit} >
-                        <label>
-                            <div>
-                                Username:
+
+                        <div className="row">
+                            <div className="col-md-2 col-md-offset-4 ">
+                                <div className="form-group">
+                                    <label>Username:</label>
+
+
+                                    <input type="text"
+                                           placeholder="Email or Phone"
+                                           value={this.state.lID}
+                                           onChange={(event)=> this.setState({lID: event.target.value})}
+                                           required
+                                           className="form-control"
+
+                                    />
+
+                                </div>
+
+                                <div className="form-group">
+                                    <label>Password:</label>
+                                    <br/>
+                                    <input type="password"
+                                           placeholder="Password"
+                                           value={this.state.lpasswd}
+                                           onChange={(event)=> this.setState({lpasswd: event.target.value})}
+                                           required
+                                           className="form-control"
+                                    />
+
+                                </div>
+
+
+                                <div className="form-group">
+                                    <label>Register Type:</label>
+                                    <select value={this.state.loginType}
+                                            onChange={(event)=>  this.setState({loginType: event.target.value})}
+                                            required
+                                            className="form-control"
+                                    >
+                                        <option value="" disabled >Select Login Type</option>
+                                        <option value="Admin"  >Admin</option>
+                                        <option value="User" defaultValue >User</option>
+                                    </select>
+                                </div>
                                 <br/>
+                                <div>
+                                    <input type="submit" value="Login"  className="btn btn-info"/>
+                                    {' '}
+                                    <Link to='/register' className="btn btn-info" >Register</Link>
 
-                                <input type="text"
-                                       placeholder="Email or Phone"
-                                       value={this.state.lID}
-                                       onChange={(event)=> this.setState({lID: event.target.value})}
-                                       required
-                                />
-
+                                </div>
                             </div>
-                            <br/>
-                            <div>
-                                Password:
-                                <br/>
-                                <input type="password"
-                                       placeholder="Password"
-                                       value={this.state.lpasswd}
-                                       onChange={(event)=> this.setState({lpasswd: event.target.value})}
-                                       required
-                                />
-
-                            </div>
-
-                            <br/>
-                            <div>
-                                Register Type:
-                                <select value={this.state.loginType}
-                                        onChange={(event)=>  this.setState({loginType: event.target.value})}
-                                        required
-                                >
-                                    <option value="" disabled >Select Login Type</option>
-                                    <option value="Admin"  >Admin</option>
-                                    <option value="User" defaultValue >User</option>
-                                </select>
-                            </div>
-                            <br/>
-                            <div>
-                                <input type="submit" value="Login"  />
-                                {' '}
-                                <Link to='/register'  >Register</Link>
-
-                            </div>
-                        </label>
+                        </div>
 
                     </form>
 

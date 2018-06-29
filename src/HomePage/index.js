@@ -106,24 +106,24 @@ class Home extends React.Component{
                     {console.log("=======In home render+========")}
                 </div>
                     <div>
-                        <h1>Home Page</h1>
-                        <h1>Hello {loginUserName}</h1>
+                        <h1 className="text-center">Home Page</h1>
+                        {/*<h1>Hello {loginUserName}</h1>*/}
 
                     </div>
                 <div>
                     {console.log("=====all registered user print")}
-                    <ul>
-                        {JSONregisteredUsers.map(p => <li key={p.userID}>{p.fname} <button onClick={() => this.handleUserDelete(p.rID)} >Delete User</button> </li>)}
-                        {/*<button onClick={this.handleClick} >Delete</button>*/}
-                    </ul>
+                    {/*<ul>*/}
+                        {/*{JSONregisteredUsers.map(p => <li key={p.userID}>{p.fname} <button onClick={() => this.handleUserDelete(p.rID)} className="btn" >Delete User</button> </li>)}*/}
+                        {/*/!*<button onClick={this.handleClick} >Delete</button>*!/*/}
+                    {/*</ul>*/}
                 </div>
                 <div>
                     {/*{this.props.tasks.todos.map((task,index)=><Task key={index} task={task} {...this.props} /> )}*/}
 
-                    <button onClick={this.onLogout} >Logout</button>
+                    {/*<button onClick={this.onLogout} className="btn-danger">Logout</button>*/}
 
                 </div>
-                <br/><br/><br/><br/><br/><br/>
+                <br/><br/><br/>
 
 
                 <div>
