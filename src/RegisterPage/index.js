@@ -12,6 +12,8 @@ import Header from './../components/Header/Header'
 
 //password check
 
+import validation from './../validation';
+
 
 
 
@@ -32,8 +34,12 @@ class Register extends React.Component{
         this.handleSubmit=this.handleSubmit.bind(this);
         this.handleChange=this.handleChange.bind(this);
         this.strengthBar = 0;
-        this.checkName=this.checkName.bind(this)
-        this.wrongName='';
+        this.checkFname=this.checkFname.bind(this)
+        this.checkLname=this.checkLname.bind(this)
+        this.checkRegisterID=this.checkRegisterID.bind(this)
+        this.wrongLname='';
+        this.wrongFname='';
+        this.wrongNum='';
         // this.navigateToLogin=this.navigateToLogin.bind(this);
 
     }
@@ -102,54 +108,8 @@ class Register extends React.Component{
         }
     }
 
-    checkPassword(password) {
-        console.log("=====password Check====")
-        const pass= password;
 
-        console.log(pass)
-        var strengthBar = 0;
-        var strength = 0 ;
-
-        if (pass.match(/[a-zA-Z0-9][a-zA-Z0-9]+/ )){//2 words matches
-            strength+=1
-        }
-        if (pass.match(/[~<>?]+/ )){//special character
-            strength+=1
-        }
-        if (pass.match(/[!@#$%^&*()]+/ )){// other special character"
-            strength+=1
-        }
-        if (pass.length>5){//length greater than 5
-            strength+=1
-        }
-
-        console.log(strength)
-
-
-        console.log("=====after password Check====")
-        switch (strength){
-            case 0:
-                strengthBar ='0'
-                break
-            case 1:
-                strengthBar ='40'
-                break
-            case 2:
-                strengthBar ='60'
-                break
-            case 3:
-                strengthBar ='80'
-                break
-            case 4:
-                strengthBar ='100'
-                break
-            default:
-                strengthBar = 0
-
-        }
-        this.strengthBar = strengthBar;
-    }
-    checkName(event){
+    checkFname(event){
         console.log("===register check name ======")
         event.preventDefault();
         this.setState({fname: event.target.value})
@@ -158,18 +118,49 @@ class Register extends React.Component{
         console.log(event.target.value)
         // console.log(name)
 
-        if (!event.target.value.match(/[a-zA-Z]+/ )) {
-            console.log("please enter character only")
-            this.wrongName="please enter characters"
+        this.wrongFname = validation.checkName(event.target.value)
 
-        }
-        else if(event.target.value.match(/[0-9~`?><,.!@#$%^&*()_=+-]+/ )){
-            this.wrongName="please enter characters"
+        console.log(this.wrongFname)
 
+
+
+    }
+    checkLname(event){
+        console.log("===register check name ======")
+        event.preventDefault();
+        this.setState({lname: event.target.value})
+
+        console.log("====fname =========")
+        console.log(event.target.value)
+        // console.log(name)
+
+        this.wrongLname = validation.checkName(event.target.value)
+
+        console.log(this.wrongLname)
+
+
+
+    }
+    checkRegisterID(event){
+        console.log("===register check name ======")
+        event.preventDefault();
+        this.setState({rID: event.target.value})
+
+        console.log("====register id =========")
+        console.log(event.target.value)
+        // console.log(name)
+
+        var emailValidation = validation.contactNumber(event.target.value)
+
+        console.log(emailValidation)
+        if(!emailValidation){
+            this.wrongNum="please enter 10 digit ID"
         }
-        else{
-            this.wrongName=''
+        else {
+            this.wrongNum=''
         }
+
+
 
     }
     handleChange(event){
@@ -180,7 +171,12 @@ class Register extends React.Component{
 
         console.log(this.state.rpasswd)
 
-        this.checkPassword(this.state.rpasswd);
+
+        this.strengthBar = validation.checkPassword(this.state.rpasswd);
+        console.log("====handle change register page")
+        // console.log(validate)
+
+
 
         // this.setState({value: event.target.value});
         //
@@ -220,12 +216,12 @@ class Register extends React.Component{
                                 <input type="text"
                                       placeholder="First Name"
                                       value={this.state.fname}
-                                      onChange={this.checkName }
+                                      onChange={this.checkFname }
                                       // onChange={(event)=>  this.setState({fname: event.target.value}) }
                                        required
                                        className="form-control"
                                 />
-                                <p>{this.wrongName}</p>
+                                <p>{this.wrongFname}</p>
                             </div>
 
                             <div className="form-group">
@@ -234,10 +230,11 @@ class Register extends React.Component{
                                 <input type="text"
                                         value={this.state.lname}
                                         placeholder="SurName"
-                                        onChange={(event)=>  this.setState({lname: event.target.value}) }
+                                        onChange={this.checkLname }
                                        required
                                        className="form-control"
                                 />
+                                <p>{this.wrongLname}</p>
 
                             </div>
 
@@ -260,11 +257,12 @@ class Register extends React.Component{
                                 <input type="text"
                                        value={this.state.rID}
                                        placeholder="Email or Phone"
-                                       onChange={(event)=>  this.setState({rID: event.target.value}) }
+                                       onChange={this.checkRegisterID }
                                        required
                                        className="form-control"
                                        // pattern="[1-9]{1}[0-9]{9}"
                                 />
+                                <p>{this.wrongNum}</p>
 
                             </div>
 
