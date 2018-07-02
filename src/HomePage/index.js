@@ -35,8 +35,8 @@ class Home extends React.Component{
         console.log('===== componDi jkjl==')
         console.log(pathname)
         const parts = pathname.split('/');
-         this.hel =  parts.pop();
-        console.log(this.hel);
+         this.logedInUserID =  parts.pop();
+        console.log(this.logedInUserID);
     }
     onLogout(event){
         this.props.history.push('/')
@@ -66,8 +66,8 @@ class Home extends React.Component{
 
     render(){
         console.log("=====home render======")
-        console.log(this.hel)
-        const loginUserID = this.hel;
+        console.log(this.logedInUserID)
+        const loginUserID = this.logedInUserID;
         console.log(loginUserID)
 
         // const loginUserID= this.props.users.user;   //id from state
@@ -82,7 +82,7 @@ class Home extends React.Component{
         console.log(JSONregisteredUsers)
 
         console.log("====login user object ======")
-        const loginUserArray = JSONregisteredUsers.filter(personObj => !personObj.fname.indexOf(loginUserID));//on the bases of id userLogin Data
+        const loginUserArray = JSONregisteredUsers.filter(personObj => !personObj.rID.indexOf(loginUserID));//on the bases of id userLogin Data
         console.log(loginUserArray);
 
         console.log("====login user name ======")
