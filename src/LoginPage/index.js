@@ -151,7 +151,7 @@ class Login extends React.Component{
                     <h1 className="text-center">Login Page</h1>
                     <form onSubmit={this.handleSubmit} >
 
-                        <div className="row">
+                        <div className="col">
                             <div className="col-md-2 col-md-offset-4 ">
                                 <div className="form-group">
                                     <label>Username:</label>
